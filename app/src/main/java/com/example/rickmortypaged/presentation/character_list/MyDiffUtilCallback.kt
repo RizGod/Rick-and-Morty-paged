@@ -1,7 +1,7 @@
-package com.example.rickmortypaged.presentation
+package com.example.rickmortypaged.presentation.character_list
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.rickmortypaged.data.Character
+import com.example.rickmortypaged.data.main_character_list.Character
 
 class MyDiffUtilCallback : DiffUtil.ItemCallback<Character>() {
     override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean =

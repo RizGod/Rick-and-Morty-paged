@@ -1,4 +1,4 @@
-package com.example.rickmortypaged.presentation
+package com.example.rickmortypaged.presentation.character_list
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickmortypaged.databinding.ItemCharacterBinding

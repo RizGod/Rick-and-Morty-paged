@@ -1,4 +1,4 @@
-package com.example.rickmortypaged.presentation
+package com.example.rickmortypaged.presentation.character_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,7 +27,7 @@ class CharactersFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCharactersBinding.inflate(layoutInflater)
         return binding.root
     }
