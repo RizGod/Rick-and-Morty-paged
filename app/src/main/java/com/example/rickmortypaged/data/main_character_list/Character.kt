@@ -1,6 +1,5 @@
 package com.example.rickmortypaged.data.main_character_list
 
-import com.example.rickmortypaged.data.detailed_information.Episode
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -15,5 +14,5 @@ data class Character(
     @Json(name = "location") val location: Location,
     @Json(name = "episode") var episodesString: List<String>,
 ) {
-    val firstEpisode: String? = null
+    var firstEpisode: String? = null
 }

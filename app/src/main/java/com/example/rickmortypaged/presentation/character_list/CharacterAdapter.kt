@@ -3,17 +3,15 @@ package com.example.rickmortypaged.presentation.character_list
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import com.bumptech.glide.Glide
 import com.example.rickmortypaged.R
 import com.example.rickmortypaged.data.main_character_list.Character
 import com.example.rickmortypaged.databinding.ItemCharacterBinding
-import com.example.rickmortypaged.presentation.detailed_information.CharacterFragment
 
-class CharacterAdapter : PagingDataAdapter<Character, MyViewHolder>(MyDiffUtilCallback()) {
-
+class CharacterAdapter(private val itemViewModel: ItemViewModel) :
+    PagingDataAdapter<Character, MyViewHolder>(MyDiffUtilCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             ItemCharacterBinding.inflate(
@@ -54,13 +52,10 @@ class CharacterAdapter : PagingDataAdapter<Character, MyViewHolder>(MyDiffUtilCa
                 Glide
                     .with(image.context)
                     .load(item.image)
+                    .error(R.drawable.icon)
                     .into(image)
-                holder.itemView.setOnClickListener {view ->
-                    (view.context as AppCompatActivity).supportFragmentManager
-                        .beginTransaction().addToBackStack(null)
-                        .replace(R.id.container, CharacterFragment.newInstance(item))
-                        .commit()
-
+                holder.itemView.setOnClickListener {
+                    itemViewModel.selectCharacter(item)
                 }
             }
         }

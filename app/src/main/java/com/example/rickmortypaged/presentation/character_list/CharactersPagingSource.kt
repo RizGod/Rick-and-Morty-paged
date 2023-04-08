@@ -15,13 +15,16 @@ class CharactersPagingSource : PagingSource<Int, Character>() {
         val page = params.key ?: FIRST_PAGE
         return try {
             val charactersPaged = repository.getCharacterList(page)
+            charactersPaged.forEach {
+                it.firstEpisode = repository.getFirstEpisodeName(it)
+            }
             LoadResult.Page(
                 data = charactersPaged,
                 prevKey = params.key?.let { it - 1 },
                 nextKey = if (charactersPaged.isEmpty()) null else page + 1
             )
         } catch (e: Exception) {
-            Log.d("Exception is ", "load: ${e.message}")
+            Log.d("--------------------------Exception is ", "load: ${e.message}")
             LoadResult.Error(e)
         }
     }

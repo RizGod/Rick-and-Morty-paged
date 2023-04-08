@@ -1,5 +1,6 @@
 package com.example.rickmortypaged.presentation.detailed_information
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.rickmortypaged.data.detailed_information.Episode
@@ -11,19 +12,25 @@ class EpisodesPagingSource(
 
     private val repository = EpisodesRepository()
 
-    override fun getRefreshKey(state: PagingState<Int, Episode>): Int? =
-        state.anchorPosition
+    override fun getRefreshKey(state: PagingState<Int, Episode>): Int = 0
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episode> {
-        val page = params.key ?: episodes.first()
+        val prevKey = params.key ?: 0
+        val page = if (prevKey >= episodes.size) episodes.size - 1 else prevKey
         return try {
-            val episodeList = repository.getEpisodeList(episodes)
+            val toIndex =
+                if (page + params.loadSize >= episodes.size)
+                    episodes.size
+                else
+                    page + params.loadSize
+            val episodeList = repository.getEpisodeList(episodes.subList(page, toIndex))
             LoadResult.Page(
                 data = episodeList,
-                prevKey = null,
-                nextKey = null
+                prevKey = if (page == 0) null else page - 1,
+                nextKey = if (page == episodes.size - 1) null else page + params.loadSize
             )
         } catch (e: Exception) {
+            Log.d("----------------Error---------------", "load: ${e.message}")
             LoadResult.Error(e)
         }
     }

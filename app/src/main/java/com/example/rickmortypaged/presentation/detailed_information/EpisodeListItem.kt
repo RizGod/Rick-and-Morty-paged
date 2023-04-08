@@ -59,9 +59,9 @@ fun EpisodeListItem(episode: Episode) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun preview() {
+fun Preview() {
     EpisodeListItem(
         episode = Episode(
             name = "Pilot",

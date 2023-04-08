@@ -46,7 +46,8 @@ fun CharacterItem(character: Character, viewModel: CharacterViewModel) {
                 contentDescription = character.name,
                 modifier = Modifier
                     .fillMaxWidth(),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                error = painterResource(id = R.drawable.icon)
             )
             Text(
                 text = character.name,
@@ -104,7 +105,7 @@ fun CharacterItem(character: Character, viewModel: CharacterViewModel) {
                 modifier = Modifier.padding(top = 10.dp)
             )
             Text(
-                text = viewModel.firstEpisode ?: "Unknown",
+                text = character.firstEpisode ?: "Unknown",
                 color = colorResource(id = R.color.white)
             )
 
@@ -126,16 +127,23 @@ fun CharacterItem(character: Character, viewModel: CharacterViewModel) {
             when {
                 loadState.refresh is LoadState.Loading -> {
                     item {
-                        Box(
-                            modifier = Modifier.fillParentMaxSize(),
-                            contentAlignment = Alignment.Center
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             CircularProgressIndicator()
                         }
                     }
                 }
                 loadState.append is LoadState.Loading -> {
-                    item { CircularProgressIndicator() }
+                    item {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    }
                 }
                 loadState.refresh is LoadState.Error -> {
                     val e = items.loadState.refresh as LoadState.Error
