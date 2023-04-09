@@ -17,7 +17,7 @@ class CharacterViewModel(
     var character = itemViewModel.selectedCharacter.value!!
 
     val pagedEpisodes: Flow<PagingData<Episode>> = Pager(
-        config = PagingConfig(pageSize = 10),
+        config = PagingConfig(pageSize = 5),
         pagingSourceFactory = {
             EpisodesPagingSource(character.episodesString.map {
                 it.substringAfterLast("/", "").toInt()

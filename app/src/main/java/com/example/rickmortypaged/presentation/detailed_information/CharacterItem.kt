@@ -18,10 +18,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.AsyncImage
 import com.example.rickmortypaged.R
+import com.example.rickmortypaged.data.detailed_information.Episode
 import com.example.rickmortypaged.data.main_character_list.Character
 import com.example.rickmortypaged.presentation.detailed_information.ui.theme.AliveColor
 import com.example.rickmortypaged.presentation.detailed_information.ui.theme.DeadColor
@@ -29,9 +30,7 @@ import com.example.rickmortypaged.presentation.detailed_information.ui.theme.Rec
 import com.example.rickmortypaged.presentation.detailed_information.ui.theme.UnknownColor
 
 @Composable
-fun CharacterItem(character: Character, viewModel: CharacterViewModel) {
-
-    val items = viewModel.pagedEpisodes.collectAsLazyPagingItems()
+fun CharacterItem(character: Character, items: LazyPagingItems<Episode>) {
 
     LazyColumn(
         Modifier

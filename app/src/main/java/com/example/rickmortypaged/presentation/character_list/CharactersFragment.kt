@@ -26,13 +26,14 @@ class CharactersFragment : Fragment() {
 
     private val viewModel: CharactersViewModel by viewModels()
     private lateinit var myAdapter: CharacterAdapter
-    private lateinit var itemViewModel: ItemViewModel
+    private val itemViewModel: ItemViewModel by lazy {
+        ViewModelProvider(requireActivity())[ItemViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        itemViewModel = ViewModelProvider(requireActivity())[ItemViewModel::class.java]
         _binding = FragmentCharactersBinding.inflate(layoutInflater)
         return binding.root
     }

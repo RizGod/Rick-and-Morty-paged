@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.rickmortypaged.presentation.character_list.ItemViewModel
 
 class CharacterFragment : Fragment() {
 
-    private lateinit var itemViewModel: ItemViewModel
+    private val itemViewModel: ItemViewModel by lazy {
+        ViewModelProvider(requireActivity())[ItemViewModel::class.java]
+    }
 
     private val viewModel: CharacterViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -34,11 +37,10 @@ class CharacterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
-        itemViewModel = ViewModelProvider(requireActivity())[ItemViewModel::class.java]
         setContent {
             CharacterItem(
                 character = itemViewModel.selectedCharacter.value!!,
-                viewModel = viewModel
+                items = viewModel.pagedEpisodes.collectAsLazyPagingItems()
             )
         }
     }

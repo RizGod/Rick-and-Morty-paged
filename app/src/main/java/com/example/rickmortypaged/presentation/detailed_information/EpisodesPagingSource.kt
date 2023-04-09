@@ -26,7 +26,7 @@ class EpisodesPagingSource(
             val episodeList = repository.getEpisodeList(episodes.subList(page, toIndex))
             LoadResult.Page(
                 data = episodeList,
-                prevKey = if (page == 0) null else page - 1,
+                prevKey = if (page == 0) null else page - params.loadSize,
                 nextKey = if (page == episodes.size - 1) null else page + params.loadSize
             )
         } catch (e: Exception) {

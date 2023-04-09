@@ -10,12 +10,12 @@ class ItemViewModel : ViewModel() {
     private val _selectedCharacter = MutableLiveData<Character>()
     val selectedCharacter: LiveData<Character> get() = _selectedCharacter
 
-    private val _isOpenNewFragment = MutableLiveData<Boolean>(false)
+    private val _isOpenNewFragment = MutableLiveData(false)
     val isOpenNewFragment: LiveData<Boolean> get() = _isOpenNewFragment
 
     fun selectCharacter(character: Character) {
-        _selectedCharacter.value = character
         _isOpenNewFragment.value = true
+        _selectedCharacter.value = character
     }
 
     fun resetOpenFragmentFlag() {
